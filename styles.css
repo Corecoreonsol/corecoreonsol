@@ -5125,6 +5125,28 @@ section {
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
   }
+  
+  /* Fix Hero Typewriter Text Overflow */
+  .hero-subtitle {
+    font-size: clamp(0.8rem, 3.5vw, 1rem) !important;
+    margin-bottom: var(--spacing-md) !important;
+    line-height: 1.4 !important;
+    padding: 0 var(--spacing-xs) !important;
+  }
+  
+  .typewriter-text {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+  
+  #typewriter-content {
+    white-space: normal !important; /* Allow text wrapping on mobile */
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+    display: inline !important;
+    line-height: 1.4 !important;
+  }
 }
 
 @media (max-width: 480px) {
