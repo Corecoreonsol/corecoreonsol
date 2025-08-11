@@ -438,6 +438,9 @@ select:hover, select:focus, select:active,
   overflow: hidden;
   transition: opacity 1s ease-out, transform 1s ease-out;
   background: var(--color-bg-primary); /* Ensure solid background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Hide main content while loader is active */
@@ -460,6 +463,17 @@ body.core-loaded .navbar {
   opacity: 0;
   transform: scale(1.1);
   pointer-events: none;
+}
+
+/* Hero content in loader - positioned exactly like main page */
+.core-loader .hero-content {
+  position: relative;
+  z-index: 2;
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  width: 650px; /* Same fixed width as main page */
+  max-width: 90vw; /* Same responsive fallback */
 }
 
 /* Video Background */
@@ -492,35 +506,6 @@ body.core-loaded .navbar {
 }
 
 /* Loader Content - uses hero-content styling with fullscreen centering */
-.loader-interface {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: var(--spacing-xl);
-  animation: fade-in 1s ease-out;
-}
-
-.loader-logo img {
-  height: 80px;
-  filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.3));
-}
-
-.loader-status {
-  font-family: var(--font-mono);
-  font-size: var(--font-size-lg);
-  color: var(--color-accent-primary);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
 /* CORE Logo */
 .core-logo-container {
   margin-bottom: var(--spacing-3xl);
@@ -601,20 +586,96 @@ body.core-loaded .navbar {
 
 /* Enter Core Button */
 /* Loader button - inherits from .btn but with specific loader styling */
-.loader-interface .enter-core-btn.btn {
+.core-loader .enter-core-btn.btn {
   opacity: 0.7;
   pointer-events: none;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   animation: slide-up 2s ease-out 1s both;
 }
 
-.loader-interface .enter-core-btn.btn.ready {
+.core-loader .enter-core-btn.btn.ready {
   opacity: 1;
   pointer-events: auto;
   animation: pulse-ready 2s ease-in-out infinite;
 }
 
 /* Old loader-specific styles removed - now using .btn styles */
+
+/* Core Loader Mobile Optimization */
+@media (max-width: 768px) {
+  .core-loader .hero-content {
+    width: 90vw;
+    max-width: 90vw;
+    padding: var(--spacing-lg) var(--spacing-md);
+    margin: 0 auto;
+  }
+  
+  .core-loader .hero-logo img {
+    height: clamp(3rem, 10vw, 6rem);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .core-loader .hero-subtitle {
+    font-size: clamp(0.9rem, 4vw, 1.2rem);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .core-loader .hero-actions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: center;
+  }
+  
+  .core-loader .btn {
+    width: 100%;
+    max-width: 280px;
+    min-height: 44px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .core-loader .hero-content {
+    width: 95vw;
+    max-width: 95vw;
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+  
+  .core-loader .hero-logo img {
+    height: clamp(2.5rem, 8vw, 4rem);
+  }
+  
+  .core-loader .hero-subtitle {
+    font-size: clamp(0.8rem, 3.5vw, 1rem);
+  }
+  
+  .core-loader .btn {
+    max-width: 250px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Video Background Optimization */
+@media (max-width: 768px) {
+  .loader-video-background video,
+  .hero-video-background video {
+    object-fit: cover;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Ensure video fills mobile screen properly */
+  .loader-video-background,
+  .hero-video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
 
 .btn-particles {
   position: absolute;
@@ -1105,15 +1166,16 @@ body.core-loaded .navbar {
 .hero-content {
   position: relative;
   text-align: center;
-  max-width: 800px;
+  width: 650px; /* Fixed width based on full typewriter text */
+  max-width: 90vw; /* Responsive fallback for mobile */
   padding: var(--spacing-xl);
   z-index: 2;
-  margin: 0 auto; /* Center horizontally like in loader */
-  background: rgba(10, 10, 10, 0.25); /* Light background for video visibility */
-  backdrop-filter: blur(3px); /* Minimal blur */
-  border-radius: 12px;
-  border: 1px solid rgba(74, 144, 226, 0.3);
-  /* Remove margin-top to match loader positioning */
+  margin: 0 auto;
+  background: none; /* No background at all */
+  backdrop-filter: none;
+  border-radius: 0;
+  border: none;
+  box-shadow: none; /* Remove any shadows */
 }
 
 /* Hero logo - same size as loader logo */
@@ -1123,14 +1185,14 @@ body.core-loaded .navbar {
   margin-bottom: var(--spacing-lg);
 }
 
-/* Desktop hero content - minimal overlay for maximum video visibility */
+/* Desktop hero content - completely invisible container */
 @media (min-width: 769px) {
   .hero-content {
-    background: rgba(10, 10, 10, 0.15); /* Very transparent for desktop */
-    backdrop-filter: blur(2px); /* Minimal blur */
-    border: 1px solid rgba(74, 144, 226, 0.25);
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
     padding: var(--spacing-2xl);
-    /* Remove margin-top to match loader positioning */
   }
 }
 
@@ -3502,11 +3564,15 @@ section {
   .hero-content {
     position: relative;
     z-index: 2;
-    background: rgba(10, 10, 10, 0.3); /* Much more transparent to show video background */
-    backdrop-filter: blur(4px); /* Reduced blur for better video visibility */
-    border-radius: 10px;
+    background: none; /* Completely transparent like desktop */
+    backdrop-filter: none; /* No blur for mobile */
+    border-radius: 0;
+    border: none;
     padding: var(--spacing-lg) var(--spacing-md);
-    margin: 0 var(--spacing-sm); /* Center vertically and horizontally like loader */
+    margin: 0 var(--spacing-sm);
+    width: 90vw; /* Use viewport width for mobile */
+    max-width: 90vw;
+  }
     max-width: 90%;
     min-width: 320px;
     width: auto;
@@ -4051,10 +4117,13 @@ section {
   }
   
   .hero-content {
-    margin: 0 var(--spacing-xs); /* Center like loader */
+    margin: 0 var(--spacing-xs);
     padding: var(--spacing-sm);
-    max-width: 100%;
-    /* Remove problematic transform scale */
+    width: 95vw; /* Even more responsive for small screens */
+    max-width: 95vw;
+    background: none; /* Completely transparent */
+    backdrop-filter: none;
+    border: none;
   }
   
   .hero-title {
@@ -4081,10 +4150,26 @@ section {
   }
   
   .btn {
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: 0.8rem;
-    min-height: 40px;
-    max-width: 200px;
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 0.9rem;
+    min-height: 44px; /* Touch-friendly height */
+    max-width: 280px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    width: 100%;
+    align-items: stretch;
+  }
+  
+  .hero-actions .btn {
+    max-width: 100%;
   }
   
   /* Force Philosophy section to single column */

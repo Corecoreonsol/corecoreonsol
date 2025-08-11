@@ -45,18 +45,22 @@
             <div class="video-overlay"></div>
         </div>
         
-        <!-- Minimal loader interface -->
-        <div class="loader-interface">
-            <div class="loader-logo">
-                <img src="blue core logo transparent.svg" alt="CORE Logo">
+        <!-- Hero content - identical to main page -->
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-logo">
+                    <img src="blue core logo transparent.svg" alt="CORE Logo">
+                </div>
+                <p class="hero-subtitle">
+                    <span class="status-text">INITIALIZING...</span>
+                </p>
             </div>
-            <div class="loader-status">
-                <span class="status-text">INITIALIZING...</span>
+            <div class="hero-actions">
+                <button id="enter-core" class="btn btn-primary enter-core-btn">
+                    <span class="btn-text">ENTER THE CORE</span>
+                    <span class="btn-arrow">→</span>
+                </button>
             </div>
-            <button id="enter-core" class="btn btn-primary enter-core-btn">
-                <span class="btn-text">ENTER THE CORE</span>
-                <span class="btn-arrow">→</span>
-            </button>
         </div>
     </div>
 
@@ -115,6 +119,7 @@
             <div class="hero-background scroll-parallax" data-parallax-speed="0.5">
             </div>
             
+            <!-- Main Hero Content -->
             <div class="hero-content">
                 <div class="hero-text">
                     <div class="hero-logo scroll-fade">
@@ -123,20 +128,6 @@
                     <p class="hero-subtitle typewriter-text scroll-fade">
                         <span id="typewriter-content">Here before time had a name. Not created, just remembered</span>
                     </p>
-                    <div class="hero-stats scroll-fade">
-                        <div class="stat-item">
-                            <span class="stat-label">NETWORK</span>
-                            <span class="stat-value">SOLANA</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">STATUS</span>
-                            <span class="stat-value status-online">LIVE</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">SUPPLY</span>
-                            <span class="stat-value counter-animate" id="total-supply">1,000,000,000</span>
-                        </div>
-                    </div>
                 </div>
                 <div class="hero-actions scroll-fade">
                     <a href="https://jup.ag/swap?sell=So11111111111111111111111111111111111111112&buy=4FdojUmXeaFMBG6yUaoufAC5Bz7u9AwnSAMizkx5pump" target="_blank" class="btn btn-primary">
