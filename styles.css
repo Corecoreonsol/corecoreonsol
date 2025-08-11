@@ -4182,11 +4182,12 @@ section {
   }
   
   .buy-steps-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: var(--spacing-lg);
     max-width: 95%;
     margin: 0 auto;
     padding: 0 var(--spacing-sm);
+    width: 100% !important;
   }
   
   .buy-step {
@@ -4216,6 +4217,33 @@ section {
     display: block;
   }
   
+  /* KOLs Mobile Horizontal Scroll */
+  .kols-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: var(--spacing-lg);
+    padding: 0 var(--spacing-md);
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .kol-card {
+    flex: 0 0 280px; /* Fixed width for each card */
+    scroll-snap-align: center;
+    margin: 0; /* Remove margin for proper scrolling */
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .kols-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .kols-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
   .btn {
     padding: var(--spacing-md) var(--spacing-lg);
     font-size: 0.9rem;
@@ -4241,9 +4269,11 @@ section {
   
   /* Force Philosophy section to single column */
   .about-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: var(--spacing-lg);
     padding: 0 var(--spacing-sm);
+    max-width: 100% !important;
+    width: 100% !important;
   }
   
   .about-section {
@@ -4282,7 +4312,7 @@ section {
     line-height: 1.6;
   }
   
-  /* Enhanced Roadmap - Very Small Screens */
+  /* Enhanced Roadmap - Mobile Complete Redesign */
   .roadmap-section {
     padding: var(--spacing-3xl) 0;
   }
@@ -4291,35 +4321,41 @@ section {
     max-width: 95%;
     margin: 0 auto;
     padding: 0 var(--spacing-sm);
-  }
-  
-  .timeline-item {
-    margin-bottom: var(--spacing-xl);
-    padding-left: 60px;
     position: relative;
   }
   
+  .timeline-item {
+    margin-bottom: var(--spacing-2xl);
+    padding-left: 0; /* Remove left padding for mobile */
+    position: relative;
+    width: 100%;
+  }
+  
   .timeline-line {
-    left: 15px;
-    width: 2px;
-    background: linear-gradient(180deg, var(--color-accent-primary), transparent);
+    display: none; /* Hide line on mobile for cleaner look */
   }
   
   .timeline-marker {
-    left: 0 !important;
-    width: 40px;
-    height: 40px;
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto var(--spacing-md) auto;
     transform: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .marker-core {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
   }
   
   .marker-glow {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
   }
   
   .timeline-content {
@@ -4328,20 +4364,25 @@ section {
     border: 1px solid rgba(74, 144, 226, 0.2);
     border-radius: 12px;
     padding: var(--spacing-lg);
+    text-align: center; /* Center content on mobile */
+    margin: 0 auto;
+    max-width: 100%;
   }
   
   .timeline-quarter {
-    font-size: clamp(0.8rem, 2.5vw, 1rem);
-    margin-bottom: var(--spacing-xs);
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
   }
   
   .timeline-title {
-    font-size: clamp(1.1rem, 4vw, 1.4rem);
-    margin-bottom: var(--spacing-sm);
+    font-size: clamp(1.3rem, 5vw, 1.6rem);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
   }
   
   .timeline-description {
-    font-size: clamp(0.85rem, 3vw, 1rem);
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
     line-height: 1.6;
     margin-bottom: var(--spacing-md);
   }
