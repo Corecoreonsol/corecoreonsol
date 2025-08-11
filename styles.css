@@ -492,19 +492,33 @@ body.core-loaded .navbar {
 }
 
 /* Loader Content - uses hero-content styling with fullscreen centering */
-.loader-content.hero-content {
-  position: relative;
+.loader-interface {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: var(--spacing-xl);
-  max-width: 800px;
-  margin: 0 auto; /* Center horizontally */
+  gap: var(--spacing-xl);
   animation: fade-in 1s ease-out;
+}
+
+.loader-logo img {
+  height: 80px;
+  filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.3));
+}
+
+.loader-status {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  color: var(--color-accent-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 /* CORE Logo */
@@ -587,14 +601,14 @@ body.core-loaded .navbar {
 
 /* Enter Core Button */
 /* Loader button - inherits from .btn but with specific loader styling */
-.loader-content .enter-core-btn.btn {
+.loader-interface .enter-core-btn.btn {
   opacity: 0.7;
   pointer-events: none;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   animation: slide-up 2s ease-out 1s both;
 }
 
-.loader-content .enter-core-btn.btn.ready {
+.loader-interface .enter-core-btn.btn.ready {
   opacity: 1;
   pointer-events: auto;
   animation: pulse-ready 2s ease-in-out infinite;
