@@ -4865,12 +4865,20 @@ section {
 /* Responsive Design for KOLs */
 @media (max-width: 768px) {
   .kols-grid {
-    grid-template-columns: 1fr;
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
     gap: var(--spacing-lg);
+    padding: 0 var(--spacing-md);
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
   
   .kol-card {
+    flex: 0 0 280px !important; /* Fixed width for each card */
+    scroll-snap-align: center !important;
     padding: var(--spacing-md);
+    margin: 0 !important; /* Remove margin for proper scrolling */
   }
   
   .kol-image {
@@ -4880,6 +4888,16 @@ section {
   
   .kols-cta {
     padding: var(--spacing-lg);
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .kols-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .kols-grid {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
@@ -5050,5 +5068,74 @@ section {
   .btn-lg {
     padding: 1rem 1.5rem;
     font-size: var(--font-size-base);
+  }
+}
+
+/* ====================================================================
+   CRITICAL MOBILE OVERRIDES - HIGHEST PRIORITY
+   These styles override all previous definitions for mobile devices
+   ==================================================================== */
+
+@media (max-width: 768px) {
+  /* Philosophy Section - Force Single Column */
+  .about-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: var(--spacing-lg) !important;
+    padding: 0 var(--spacing-sm) !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  /* How to Buy Section - Force Single Column */
+  .buy-steps-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: var(--spacing-lg) !important;
+    max-width: 95% !important;
+    margin: 0 auto !important;
+    padding: 0 var(--spacing-sm) !important;
+    width: 100% !important;
+  }
+  
+  /* KOLs Section - Force Horizontal Scroll */
+  .kols-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    gap: var(--spacing-lg) !important;
+    padding: 0 var(--spacing-md) !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+    grid-template-columns: unset !important;
+  }
+  
+  .kol-card {
+    flex: 0 0 280px !important;
+    scroll-snap-align: center !important;
+    margin: 0 !important;
+  }
+  
+  /* Hide KOLs scrollbar */
+  .kols-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+  
+  .kols-grid {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even more specific for very small screens */
+  .about-grid,
+  .buy-steps-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .kols-grid {
+    display: flex !important;
+    grid-template-columns: unset !important;
   }
 }
