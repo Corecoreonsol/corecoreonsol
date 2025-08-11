@@ -4783,6 +4783,13 @@ section {
   .hero-subtitle {
     font-size: 0.8rem;
     margin: var(--spacing-xs) 0;
+    display: none; /* Ukrycie długiego tekstu na tablet */
+  }
+  
+  /* Ukrycie długiego tekstu na mobile i tablet */
+  .hero-content > p,
+  p:contains("Here before time had a name") {
+    display: none !important;
   }
   
   .loader-status-info {
@@ -5160,26 +5167,43 @@ section {
   .hero-text,
   .hero-content {
     padding: var(--spacing-xs);
-    margin: 0 var(--spacing-xs);
-    max-width: 65%;
+    margin: 0 auto;
+    max-width: 90%;
+    min-height: 200px; /* Zmniejszona wysokość o połowę */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
   
   .hero-title {
     font-size: clamp(1rem, 4vw, 1.3rem);
+    margin-bottom: var(--spacing-xs);
   }
   
   .hero-subtitle {
     font-size: 0.7rem;
+    display: none; /* Ukrycie długiego tekstu na mobile */
   }
   
   .hero-logo img {
     width: 60px;
+    margin-bottom: var(--spacing-sm);
   }
   
   .enter-core-btn {
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: 0.75rem;
     min-width: 120px;
+    margin-top: var(--spacing-xs);
+  }
+  
+  /* Ukrycie długiego tekstu na mobile */
+  .hero-content > p,
+  p:contains("Here before time had a name") {
+    display: none !important;
   }
   
   .container {
