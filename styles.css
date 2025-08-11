@@ -5138,6 +5138,23 @@ section {
     display: block !important;
     width: 100% !important;
     text-align: center !important;
+    position: relative !important;
+  }
+  
+  .typewriter-text::before {
+    content: "Here before time had a name.\A Not created, just remembered." !important;
+    white-space: pre-line !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    text-align: center !important;
+    font-size: clamp(0.8rem, 3.5vw, 1rem) !important;
+    line-height: 1.4 !important;
+  }
+  
+  .typewriter-text span {
+    opacity: 0 !important;
   }
   
   #typewriter-content {
@@ -5146,6 +5163,7 @@ section {
     max-width: 100% !important;
     display: inline !important;
     line-height: 1.4 !important;
+    opacity: 0 !important;
   }
 }
 
