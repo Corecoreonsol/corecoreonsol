@@ -491,6 +491,10 @@ body.core-loaded .navbar {
   height: 100%;
   object-fit: cover;
   filter: brightness(0.7) contrast(1.2) saturate(1.1);
+  /* Mobile safety - prevent fullscreen behavior */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .video-overlay {
@@ -1125,6 +1129,10 @@ body.core-loaded .navbar {
   image-rendering: crisp-edges;
   transform: translateZ(0); /* Hardware acceleration */
   will-change: filter;
+  /* Mobile safety - prevent fullscreen behavior */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .hero-video:hover {

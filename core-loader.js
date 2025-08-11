@@ -131,9 +131,11 @@ class CoreLoader {
             staticBackground.classList.add('hidden');
         }
         
-        // Play video if it hasn't started
-        if (this.video && this.video.paused) {
-            this.video.play().catch(console.log);
+        // IMPORTANT: Stop and hide loader video immediately to prevent mobile fullscreen
+        if (this.video) {
+            this.video.pause();
+            this.video.style.display = 'none';
+            this.video.style.opacity = '0';
         }
 
         // Update status
@@ -143,7 +145,7 @@ class CoreLoader {
         this.enterBtn.style.transform = 'scale(0.95)';
         
         setTimeout(() => {
-            // Transfer video to hero section
+            // Transfer video to hero section WITHOUT playing loader video
             this.transferVideoToHero();
             
             // Start fade out animation
@@ -173,52 +175,47 @@ class CoreLoader {
         const heroVideoBackground = document.getElementById('hero-video-bg');
         const heroVideo = document.getElementById('hero-video');
         
-        if (heroVideoBackground && heroVideo && this.video) {
-            // Pause loader video first to prevent mobile fullscreen
-            this.video.pause();
+        if (heroVideoBackground && heroVideo) {
+            // Don't use loader video at all - just start fresh hero video
+            // This completely avoids mobile fullscreen issues
             
-            // Copy video source and current time
-            const currentTime = this.video.currentTime;
-            const videoSrc = this.video.src || this.video.querySelector('source')?.src;
+            // Set up hero video as fresh instance
+            heroVideo.muted = true; // Start muted for mobile compatibility
+            heroVideo.loop = true;
+            heroVideo.preload = 'auto';
             
-            // Set up hero video with mobile-safe attributes
-            if (videoSrc) {
-                heroVideo.src = videoSrc;
-                heroVideo.currentTime = currentTime;
-                heroVideo.loop = true;
-                heroVideo.preload = 'auto';
-                
-                // Mobile-specific attributes to prevent fullscreen
-                heroVideo.setAttribute('playsinline', 'true');
-                heroVideo.setAttribute('webkit-playsinline', 'true');
-                heroVideo.muted = true; // Start muted for mobile compatibility
-                
-                // Show hero video background immediately
-                heroVideoBackground.style.display = 'block';
-                heroVideoBackground.style.opacity = '1';
-                heroVideoBackground.style.transition = 'none';
-                heroVideoBackground.classList.add('active');
-                
-                // Force immediate render
-                heroVideoBackground.offsetHeight;
-                
-                // Start playing with mobile-safe approach
-                const playPromise = heroVideo.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        // Unmute after successful play (if user interaction allows)
-                        setTimeout(() => {
-                            heroVideo.muted = false;
-                        }, 500);
-                    }).catch(err => {
-                        console.log('Hero video autoplay prevented:', err);
-                        // Keep muted for mobile compatibility
-                    });
-                }
-                
-                // Add video controls for better UX
-                this.setupHeroVideoControls(heroVideo);
+            // Mobile-specific attributes to prevent fullscreen
+            heroVideo.setAttribute('playsinline', 'true');
+            heroVideo.setAttribute('webkit-playsinline', 'true');
+            
+            // Show hero video background immediately
+            heroVideoBackground.style.display = 'block';
+            heroVideoBackground.style.opacity = '1';
+            heroVideoBackground.style.transition = 'none';
+            heroVideoBackground.classList.add('active');
+            
+            // Force immediate render
+            heroVideoBackground.offsetHeight;
+            
+            // Load and start playing fresh video (no inheritance from loader)
+            heroVideo.load(); // Force reload
+            
+            const playPromise = heroVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('Hero video playing successfully');
+                    // Unmute after successful play (if user interaction allows)
+                    setTimeout(() => {
+                        heroVideo.muted = false;
+                    }, 1000);
+                }).catch(err => {
+                    console.log('Hero video autoplay prevented:', err);
+                    // Keep muted for mobile compatibility
+                });
             }
+            
+            // Add video controls for better UX
+            this.setupHeroVideoControls(heroVideo);
         }
     }
 
