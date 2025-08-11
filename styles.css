@@ -4756,7 +4756,7 @@ section {
 
   /* ========== MOBILE LOADER OPTIMIZATION ========== */
   .core-loader {
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
   }
   
   .loader-video-background video {
@@ -4766,25 +4766,33 @@ section {
   }
   
   .hero-text {
-    padding: var(--spacing-lg);
-    max-width: 90%;
+    padding: var(--spacing-md);
+    max-width: 85%;
     margin: 0 auto;
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    border: 1px solid rgba(74, 144, 226, 0.3);
   }
   
   .hero-logo img {
-    width: 120px;
+    width: 100px;
     height: auto;
   }
   
   .hero-subtitle {
-    font-size: var(--font-size-lg);
-    margin: var(--spacing-md) 0;
+    font-size: var(--font-size-base);
+    margin: var(--spacing-sm) 0;
+  }
+  
+  .loader-status-info {
+    margin: var(--spacing-sm) 0;
   }
   
   .enter-core-btn {
-    padding: var(--spacing-md) var(--spacing-xl);
-    font-size: var(--font-size-lg);
-    min-width: 200px;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    min-width: 180px;
   }
 
   /* ========== MOBILE NAVIGATION ========== */
@@ -4887,25 +4895,25 @@ section {
   .hero-content {
     position: relative;
     z-index: 3;
-    background: rgba(10, 10, 10, 0.4);
+    background: rgba(10, 10, 10, 0.5);
     backdrop-filter: blur(8px);
-    border-radius: 15px;
-    padding: var(--spacing-lg);
+    border-radius: 12px;
+    padding: var(--spacing-md);
     margin: 0 var(--spacing-sm);
-    max-width: 95%;
+    max-width: 85%;
     text-align: center;
     border: 1px solid rgba(74, 144, 226, 0.3);
   }
   
   .hero-title {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
     line-height: 1.2;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
   }
   
   .hero-subtitle {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
     opacity: 0.9;
   }
 
@@ -4933,29 +4941,71 @@ section {
   }
 
   /* ========== MOBILE GRIDS ========== */
+  /* Philosophy and other 3-card sections - vertical stack */
   .about-grid,
-  .stats-grid,
-  .kols-grid {
+  .stats-grid {
     grid-template-columns: 1fr !important;
     gap: var(--spacing-lg) !important;
     max-width: 100%;
   }
   
+  /* How to Buy - vertical stack */
   .buy-steps-grid {
     grid-template-columns: 1fr !important;
     gap: var(--spacing-md) !important;
+  }
+  
+  /* KOLs - horizontal scroll */
+  .kols-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    gap: var(--spacing-md) !important;
+    padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md) !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  .kols-grid::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .kols-grid::-webkit-scrollbar-track {
+    background: rgba(74, 144, 226, 0.1);
+    border-radius: 2px;
+  }
+  
+  .kols-grid::-webkit-scrollbar-thumb {
+    background: var(--color-accent-primary);
+    border-radius: 2px;
   }
 
   /* ========== MOBILE CARDS ========== */
   .about-card,
   .stat-card,
-  .buy-step,
-  .kol-card {
+  .buy-step {
     padding: var(--spacing-lg) !important;
     margin: 0 auto;
     max-width: 100%;
     min-height: auto !important;
     text-align: center;
+  }
+  
+  /* KOL Cards - horizontal scroll specific */
+  .kol-card {
+    padding: var(--spacing-lg) !important;
+    margin: 0;
+    min-width: 280px !important;
+    max-width: 280px !important;
+    flex-shrink: 0 !important;
+    scroll-snap-align: center !important;
+    text-align: center;
+    min-height: auto !important;
+  }
+  
+  .kol-image {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--spacing-md);
   }
   
   .card-icon,
@@ -4979,38 +5029,48 @@ section {
   /* ========== MOBILE ROADMAP ========== */
   .roadmap-timeline {
     max-width: 100% !important;
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-lg) var(--spacing-md);
+    position: relative;
   }
   
   .timeline-item {
     flex-direction: column !important;
-    align-items: center;
+    align-items: flex-start !important;
     margin-bottom: var(--spacing-xl) !important;
     position: relative;
+    padding-left: 40px;
   }
   
   .timeline-item:nth-child(odd),
   .timeline-item:nth-child(even) {
     flex-direction: column !important;
+    align-items: flex-start !important;
   }
   
   .timeline-line {
     left: 20px !important;
     transform: none !important;
     width: 2px;
-    height: calc(100% + var(--spacing-xl));
+    height: 100%;
+    top: 0;
   }
   
   .timeline-marker {
-    position: relative;
-    left: auto !important;
+    position: absolute;
+    left: -20px !important;
+    top: 0;
     transform: none !important;
-    margin-bottom: var(--spacing-md);
-    width: 60px;
-    height: 60px;
+    margin-bottom: 0;
+    width: 40px;
+    height: 40px;
   }
   
   .marker-core {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .marker-ring {
     width: 40px;
     height: 40px;
   }
@@ -5020,7 +5080,8 @@ section {
     margin: 0 !important;
     width: 100%;
     min-height: auto !important;
-    text-align: center;
+    text-align: left;
+    padding: var(--spacing-md);
   }
   
   .timeline-item:nth-child(odd) .timeline-content,
@@ -5028,10 +5089,19 @@ section {
     margin: 0 !important;
   }
   
+  .content-header {
+    text-align: left;
+  }
+  
+  .timeline-date {
+    font-size: var(--font-size-sm);
+  }
+  
   .roadmap-stats {
     grid-template-columns: 1fr !important;
     gap: var(--spacing-md) !important;
     margin-top: var(--spacing-lg) !important;
+    padding: 0 var(--spacing-md);
   }
 
   /* ========== MOBILE BUTTONS ========== */
@@ -5075,17 +5145,23 @@ section {
     --spacing-xs: 0.4rem;
     --spacing-sm: 0.6rem;
     --spacing-md: 0.8rem;
-    --spacing-lg: 1.2rem;
-    --spacing-xl: 1.6rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.4rem;
   }
   
+  .hero-text,
   .hero-content {
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
     margin: 0 var(--spacing-xs);
+    max-width: 90%;
   }
   
   .hero-title {
-    font-size: clamp(1.5rem, 7vw, 2rem);
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
+  
+  .hero-logo img {
+    width: 80px;
   }
   
   .container {
@@ -5094,12 +5170,27 @@ section {
   
   .about-card,
   .stat-card,
-  .buy-step,
+  .buy-step {
+    padding: var(--spacing-md) !important;
+  }
+  
   .kol-card {
+    min-width: 240px !important;
+    max-width: 240px !important;
     padding: var(--spacing-md) !important;
   }
   
   .timeline-content {
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+  
+  .timeline-marker {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .marker-core {
+    width: 20px;
+    height: 20px;
   }
 }
