@@ -5139,6 +5139,7 @@ section {
     width: 100% !important;
     text-align: center !important;
     position: relative !important;
+    padding: 0 var(--spacing-sm) !important;
   }
   
   .typewriter-text::before {
@@ -5149,8 +5150,10 @@ section {
     left: 0 !important;
     width: 100% !important;
     text-align: center !important;
-    font-size: clamp(0.8rem, 3.5vw, 1rem) !important;
-    line-height: 1.4 !important;
+    font-size: clamp(0.7rem, 2.8vw, 0.9rem) !important;
+    line-height: 1.3 !important;
+    padding: 0 var(--spacing-xs) !important;
+    box-sizing: border-box !important;
   }
   
   .typewriter-text span {
@@ -5177,5 +5180,16 @@ section {
   .kols-grid {
     display: flex !important;
     grid-template-columns: unset !important;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Hide typewriter text on very small screens if it still overflows */
+  .typewriter-text {
+    display: none !important;
+  }
+  
+  .typewriter-text::before {
+    display: none !important;
   }
 }
