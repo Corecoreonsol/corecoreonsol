@@ -24,8 +24,6 @@
     <!-- Preload critical resources -->
     <link rel="preload" href="styles.css" as="style">
     <link rel="preload" href="script.js" as="script">
-    <link rel="preload" href="terminal.js" as="script">
-    <link rel="preload" href="cursor.js" as="script">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
@@ -77,10 +75,9 @@
             </div>
             <div class="nav-menu" id="nav-menu">
                 <a href="#home" class="nav-link" data-section="home">HOME</a>
-                <a href="https://jup.ag/swap?sell=So11111111111111111111111111111111111111112&buy=4FdojUmXeaFMBG6yUaoufAC5Bz7u9AwnSAMizkx5pump" target="_blank" class="nav-link">BUY NOW</a>
                 <a href="#about" class="nav-link" data-section="about">ABOUT</a>
                 <a href="#how-to-buy" class="nav-link" data-section="how-to-buy">HOW TO BUY</a>
-                <a href="terminal.html" class="nav-link">TERMINAL</a>
+                <a href="#live-stats" class="nav-link" data-section="live-stats">STATS</a>
                 <a href="#roadmap" class="nav-link" data-section="roadmap">ROADMAP</a>
             </div>
             <div class="nav-social">
@@ -99,11 +96,6 @@
                         <path d="M19.321 5.562a5.124 5.124 0 01-.443-.258 6.228 6.228 0 01-1.137-.966c-.849-.849-1.374-2.032-1.374-3.338h-2.289v14.554c0 .885-.335 1.691-.883 2.298-.548.608-1.295.953-2.117.953a3.344 3.344 0 01-3.344-3.344c0-1.848 1.496-3.344 3.344-3.344.348 0 .683.053 1 .154V9.742a6.205 6.205 0 00-1-.08c-3.422 0-6.199 2.777-6.199 6.199S7.656 22.06 11.078 22.06s6.199-2.777 6.199-6.199V9.098a8.987 8.987 0 005.043 1.541V7.786c-1.064 0-2.042-.417-2.757-1.096-.358-.34-.644-.748-.842-1.128z"/>
                     </svg>
                 </a>
-            </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
             </div>
         </div>
     </nav>
@@ -388,7 +380,6 @@
             <div class="container">
                 <div class="section-header scroll-fade">
                     <h2 class="section-title">JOIN THE MOVEMENT</h2>
-                    <p class="section-subtitle">Key Opinion Leaders supporting the CORE ecosystem</p>
                 </div>
                 
                 <div class="kols-grid scroll-fade">
@@ -451,9 +442,9 @@
                 </div>
 
                 <div class="kols-cta scroll-fade">
-                    <p class="cta-text">Join the CORE community and connect with industry leaders</p>
+                    <p class="cta-text">Join the Coremmunity and connect with industry leaders</p>
                     <a href="https://t.me/CoreCommunityPortal" target="_blank" class="cta-button">
-                        Join Community
+                        Join Coremmunity
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="m9 18 6-6-6-6"/>
                         </svg>
@@ -732,63 +723,14 @@
     <script src="scroll-animations.js"></script>
     <script src="smooth-scroll.js"></script>
     <script src="stars-animation.js"></script>
-    <script src="mobile-navigation-simple.js"></script>
     <script src="roadmap-animations.js"></script>
     <script src="script.js"></script>
-    <script src="terminal.js"></script>
-    <script src="cursor.js"></script>
     
     <!-- Initialize Lucide Icons -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
-            }
-            
-            // Debug: Check if terminal section exists
-            const terminalSection = document.getElementById('terminal');
-            console.log('Terminal section found:', terminalSection);
-            
-            // Initialize terminal stats
-            const sessionTime = document.getElementById('session-time');
-            if (sessionTime) {
-                sessionTime.textContent = new Date().toLocaleTimeString();
-                console.log('Session time initialized');
-            }
-            
-            // Animate session counter
-            const sessionCounter = document.getElementById('session-count');
-            if (sessionCounter) {
-                let count = 0;
-                const target = Math.floor(Math.random() * 50) + 10;
-                const interval = setInterval(() => {
-                    count++;
-                    sessionCounter.textContent = count;
-                    if (count >= target) {
-                        clearInterval(interval);
-                    }
-                }, 50);
-                console.log('Session counter initialized');
-            }
-            
-            // Auto-focus terminal input when section is visible
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        console.log('Terminal section is visible');
-                        const terminalInput = document.getElementById('terminal-input');
-                        if (terminalInput) {
-                            setTimeout(() => {
-                                terminalInput.focus();
-                            }, 500);
-                        }
-                    }
-                });
-            });
-            
-            if (terminalSection) {
-                observer.observe(terminalSection);
-                console.log('Observer set up for terminal section');
             }
         });
     </script>

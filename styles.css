@@ -211,11 +211,6 @@ html.css-smooth-scroll {
   transform: translate3d(0, 0, 0); /* Force hardware acceleration */
 }
 
-/* Smooth custom cursor integration */
-.custom-cursor {
-  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
 /* Stagger animation containers */
 [data-scroll-stagger] {
   position: relative;
@@ -237,44 +232,8 @@ body {
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none; /* Hide default cursor */
   /* Ensure solid dark background until loader is ready */
   background-color: #0a0a0a !important;
-}
-
-/* Force hide cursor on all elements */
-*, *::before, *::after {
-  cursor: none !important;
-}
-
-/* Ensure cursor is hidden on interactive elements */
-a, button, input, textarea, select, [role="button"], [tabindex] {
-  cursor: none !important;
-}
-
-/* Additional cursor hiding for webkit browsers */
-::-webkit-any-link {
-  cursor: none !important;
-}
-
-/* Override any hover states that might show cursor */
-*:hover, *:focus, *:active {
-  cursor: none !important;
-}
-
-/* Specific overrides for common elements */
-a:hover, a:focus, a:active,
-button:hover, button:focus, button:active,
-input:hover, input:focus, input:active,
-textarea:hover, textarea:focus, textarea:active,
-select:hover, select:focus, select:active,
-[role="button"]:hover, [role="button"]:focus, [role="button"]:active {
-  cursor: none !important;
-}
-
-/* Override any CSS frameworks or libraries */
-.btn:hover, .button:hover, .link:hover {
-  cursor: none !important;
 }
 
 /* Selection Styles */
@@ -307,120 +266,6 @@ select:hover, select:focus, select:active,
 }
 
 /* ====================================================================
-   CUSTOM CURSOR
-   ==================================================================== */
-
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 20px;
-  background: transparent;
-  border: 2px solid var(--color-accent-primary);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999; /* Increase z-index to be above everything */
-  transition: width 0.15s ease, height 0.15s ease, border-color 0.15s ease, background 0.15s ease; /* Faster transitions */
-  mix-blend-mode: difference;
-  will-change: transform; /* Optimize for animations */
-  transform: translate3d(0, 0, 0); /* Hardware acceleration */
-}
-
-.custom-cursor::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 4px;
-  height: 4px;
-  background: var(--color-accent-primary);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  animation: pulse-cursor 2s ease-in-out infinite;
-}
-
-.custom-cursor.hover {
-  width: 20px;
-  height: 20px;
-  border-color: var(--color-accent-tertiary);
-  background: rgba(74, 144, 226, 0.1);
-  backdrop-filter: blur(5px);
-  transition: all 0.1s ease; /* Even faster hover transition */
-}
-
-.custom-cursor.click {
-  width: 20px;
-  height: 20px;
-  border-color: var(--color-accent-secondary);
-  transition: all 0.05s ease; /* Very fast click response */
-}
-
-.custom-cursor.text {
-  width: 2px;
-  height: 20px;
-  border-radius: 1px;
-  border-color: var(--color-accent-primary);
-  background: var(--color-accent-primary);
-}
-
-.custom-cursor.loading {
-  border-color: var(--color-accent-tertiary);
-  animation: rotate-cursor 1s linear infinite;
-}
-
-.custom-cursor.disabled {
-  border-color: var(--color-text-muted);
-  opacity: 0.5;
-}
-
-@keyframes pulse-cursor {
-  0%, 100% { 
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% { 
-    opacity: 0.7;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-}
-
-@keyframes rotate-cursor {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Hide cursor on mobile devices */
-@media (max-width: 768px) {
-  .custom-cursor {
-    display: none;
-  }
-  
-  body, *, *::before, *::after {
-    cursor: auto !important; /* Restore default cursor on mobile */
-  }
-  
-  a, button, input, textarea, select, [role="button"], [tabindex] {
-    cursor: pointer !important; /* Restore pointer cursor for interactive elements on mobile */
-  }
-}
-
-/* Also hide custom cursor on touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .custom-cursor {
-    display: none !important;
-  }
-  
-  *, *::before, *::after {
-    cursor: auto !important;
-  }
-  
-  a, button, [role="button"] {
-    cursor: pointer !important;
-  }
-}
-
-/* ====================================================================
    LOADING SCREEN
    ==================================================================== */
 
@@ -448,7 +293,7 @@ select:hover, select:focus, select:active,
 .navbar {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 1s ease-out, visibility 1s ease-out;
+  transition: opacity 1s ease-out, visibility 1s ease-out, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* Show main content when loader is gone */
@@ -456,7 +301,7 @@ body.core-loaded .main-content,
 body.core-loaded .navbar {
   opacity: 1 !important;
   visibility: visible !important;
-  transition: opacity 1s ease-out, visibility 0s ease-out; /* Instant visibility, smooth opacity */
+  transition: opacity 1s ease-out, visibility 0s ease-out, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important; /* Dodaj transform transition */
 }
 
 .core-loader.hidden {
@@ -928,12 +773,13 @@ body.core-loaded .navbar {
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   z-index: var(--z-nav);
-  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important, background 0.3s ease !important;
   transform: translateY(0);
+  will-change: transform;
 }
 
 .navbar.hidden {
-  transform: translateY(-100%);
+  transform: translateY(-100%) !important;
 }
 
 .navbar.scrolled {
@@ -1033,25 +879,6 @@ body.core-loaded .navbar {
   transform: translateY(-2px);
 }
 
-.nav-toggle {
-  position: absolute;
-  right: var(--spacing-xl);
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  width: 30px;
-  height: 24px;
-  justify-content: space-between;
-}
-
-.nav-toggle span {
-  width: 100%;
-  height: 3px;
-  background: var(--color-text-primary);
-  transition: all var(--transition-normal);
-  border-radius: 2px;
-}
-
 .nav-status {
   display: flex;
   align-items: center;
@@ -1074,13 +901,6 @@ body.core-loaded .navbar {
   flex-direction: column;
   gap: 4px;
   cursor: pointer;
-}
-
-.nav-toggle span {
-  width: 24px;
-  height: 2px;
-  background: var(--color-text-primary);
-  transition: var(--transition-fast);
 }
 
 /* ====================================================================
@@ -3531,20 +3351,6 @@ section {
 }
 
 @media (max-width: 768px) {
-  /* Show mobile navigation toggle */
-  .nav-toggle {
-    position: relative;
-    right: 0;
-    display: flex;
-    z-index: 1002;
-    order: 3;
-    cursor: pointer;
-    width: 30px;
-    height: 24px;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
   /* Mobile hero section optimization for cat background visibility */
   .hero-section {
     min-height: calc(100vh - 70px);
@@ -3652,114 +3458,58 @@ section {
     display: none;
   }
   
-  .nav-toggle {
-    position: relative;
-    right: 0;
-    display: flex;
-    z-index: 1002;
-    order: 3;
-    cursor: pointer;
-    width: 30px;
-    height: 24px;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .nav-toggle span {
-    width: 100%;
-    height: 3px;
-    background: var(--color-text-primary);
-    transition: all var(--transition-normal);
-    border-radius: 2px;
-  }
-  
-  /* Mobile Navigation styles - Enhanced */
+  /* Mobile Navigation styles - Simple horizontal menu */
   .nav-menu {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background: rgba(10, 10, 10, 0.98);
-    backdrop-filter: blur(25px);
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: var(--spacing-3xl) var(--spacing-xl);
-    transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 999;
-    border-left: 1px solid rgba(74, 144, 226, 0.3);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
-  }
-  
-  .nav-menu.active {
-    left: 0;
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 10px !important;
+    transition: none !important;
+    z-index: auto !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
   }
   
   .nav-menu .nav-link {
-    font-size: var(--font-size-xl);
-    font-weight: 600;
-    color: var(--color-text-primary);
-    text-decoration: none;
-    padding: var(--spacing-lg) var(--spacing-xl);
-    margin: var(--spacing-sm) 0;
-    border-radius: var(--radius-lg);
-    transition: all var(--transition-normal);
-    text-align: center;
-    min-width: 200px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    padding: 4px 8px !important;
+    margin: 0 4px !important;
+    border-radius: 0 !important;
+    transition: color 0.3s ease !important;
+    text-align: center !important;
+    background: transparent !important;
+    border: none !important;
+    white-space: nowrap !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+  }
+  }
+  
+  .nav-menu .nav-link:hover {
+    color: #4a90e2 !important;
+    text-shadow: 0 0 5px rgba(74, 144, 226, 0.5) !important;
   }
   
   .nav-menu .nav-link:hover,
   .nav-menu .nav-link.active {
-    background: rgba(74, 144, 226, 0.2);
+    color: #4a90e2 !important;
     border-color: var(--color-accent-primary);
     color: var(--color-accent-primary);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
-  }
-  
-  .nav-toggle {
-    display: flex;
-    z-index: 1002;
-    order: 3;
-    cursor: pointer;
-    width: 30px;
-    height: 24px;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform var(--transition-normal);
-  }
-  
-  .nav-toggle:hover {
-    transform: scale(1.1);
-  }
-  
-  .nav-toggle span {
-    width: 100%;
-    height: 3px;
-    background: var(--color-text-primary);
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border-radius: 2px;
-    transform-origin: center;
-  }
-  
-  /* Enhanced hamburger animation */
-  .nav-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-    background: var(--color-accent-primary);
-  }
-  
-  .nav-toggle.active span:nth-child(2) {
-    opacity: 0;
-    transform: scale(0);
-  }
-  
-  .nav-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-    background: var(--color-accent-primary);
   }
   
   /* Other mobile optimizations */
@@ -5137,20 +4887,22 @@ section {
   }
   
   .nav-menu .nav-link {
-    display: block !important;
-    width: 100% !important;
-    padding: 20px 0 !important;
+    display: inline-block !important;
+    padding: 6px 12px !important;
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 1.4rem !important;
+    font-size: 12px !important;
     font-weight: 500 !important;
     text-align: center !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    transition: all 0.3s ease !important;
+    border: none !important;
+    transition: color 0.3s ease !important;
+    margin: 0 4px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
   }
   
   .nav-menu .nav-link:hover {
-    color: var(--primary-color) !important;
+    color: #4a90e2 !important;
     background: rgba(255, 255, 255, 0.05) !important;
   }
   
@@ -5590,21 +5342,22 @@ section {
 }
 
 .nav-menu .nav-link {
-  display: block !important;
-  width: 100% !important;
-  padding: 20px 0 !important;
+  display: inline-block !important;
+  padding: 6px 12px !important;
   color: #ffffff !important;
   text-decoration: none !important;
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
   text-align: center !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.3s ease !important;
+  border: none !important;
+  transition: color 0.3s ease !important;
+  margin: 0 4px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
 }
 
 .nav-menu .nav-link:hover {
-  color: var(--primary-color, #0096ff) !important;
-  background: rgba(255, 255, 255, 0.05) !important;
+  color: #4a90e2 !important;
 }
 
 /* Desktop navigation visibility fix */
@@ -5627,9 +5380,10 @@ section {
   }
   
   .nav-menu .nav-link {
-    padding: 10px 20px !important;
-    font-size: 1rem !important;
-    border-bottom: none !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    border: none !important;
+    margin: 0 4px !important;
   }
 }
 
@@ -5820,24 +5574,21 @@ section {
   }
   
   .nav-menu .nav-link {
-    display: block !important;
-    width: 100% !important;
-    max-width: 300px !important;
-    padding: 25px 0 !important;
+    display: inline-block !important;
+    padding: 6px 12px !important;
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 1.8rem !important;
-    font-weight: 600 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
     text-align: center !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: none !important;
     transition: all 0.3s ease !important;
     touch-action: manipulation !important;
     -webkit-tap-highlight-color: transparent !important;
   }
   
   .nav-menu .nav-link:hover {
-    color: #00d4ff !important;
-    background: rgba(255, 255, 255, 0.1) !important;
+    color: #4a90e2 !important;
   }
 }
 
