@@ -5519,17 +5519,421 @@ section {
     left: 0 !important;
   }
   
+/* ====================================================================
+   EMERGENCY NAVIGATION FIX - FINAL VERSION
+   ==================================================================== */
+
+/* FORCE HAMBURGER VISIBILITY */
+.nav-toggle {
+  display: flex !important;
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 100000 !important;
+  width: 50px !important;
+  height: 50px !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 2px solid #ffffff !important;
+  border-radius: 8px !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 4px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-toggle span {
+  display: block !important;
+  width: 24px !important;
+  height: 3px !important;
+  background: #ffffff !important;
+  transition: all 0.3s ease !important;
+  border-radius: 1px !important;
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px) !important;
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0 !important;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px) !important;
+}
+
+/* FORCE MOBILE MENU */
+.nav-menu {
+  position: fixed !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 20, 40, 0.98) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  z-index: 99999 !important;
+  padding: 100px 30px 30px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  overflow-y: auto !important;
+}
+
+.nav-menu.active {
+  left: 0 !important;
+  transform: translateX(0) !important;
+}
+
+.nav-menu .nav-link {
+  display: block !important;
+  width: 100% !important;
+  padding: 20px 0 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-menu .nav-link:hover {
+  color: var(--primary-color, #0096ff) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Desktop navigation visibility fix */
+@media (min-width: 769px) {
+  .nav-toggle {
+    display: none !important;
+  }
+  
+  .nav-menu {
+    position: static !important;
+    left: auto !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    z-index: auto !important;
+  }
+  
+  .nav-menu .nav-link {
+    padding: 10px 20px !important;
+    font-size: 1rem !important;
+    border-bottom: none !important;
+  }
+}
+
+/* ====================================================================
+   EMERGENCY FIXES - STEP NUMBERS AND MOBILE
+   ==================================================================== */
+
+/* FORCE STEP NUMBERS ON ALL DEVICES */
+.step-number {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  top: -20px !important;
+  left: 20px !important;
+  background: linear-gradient(135deg, #0096ff, #00d4ff) !important;
+  color: #ffffff !important;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: bold !important;
+  font-size: 1.2rem !important;
+  box-shadow: 0 6px 20px rgba(0, 150, 255, 0.4) !important;
+  z-index: 100 !important;
+  border: 3px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+/* FORCE MOBILE STEP NUMBERS */
+@media (max-width: 768px) {
+  .step-number {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    top: -25px !important;
+    left: 25px !important;
+    background: linear-gradient(135deg, #0096ff, #00d4ff) !important;
+    color: #ffffff !important;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: bold !important;
+    font-size: 1.4rem !important;
+    box-shadow: 0 8px 25px rgba(0, 150, 255, 0.5) !important;
+    z-index: 1000 !important;
+    border: 4px solid rgba(255, 255, 255, 0.3) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .buy-step {
+    position: relative !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    padding: 40px 20px 25px !important;
+    margin-bottom: 40px !important;
+  }
+}
+
+/* HIDE TYPEWRITER COMPLETELY ON ALL DEVICES */
+.typewriter-text,
+.typewriter-text *,
+.typewriter-text::before,
+.typewriter-text::after,
+#typewriter-content,
+#typewriter-content *,
+.typewriter-container,
+.typewriter-container * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* ROADMAP MOBILE FIX */
+@media (max-width: 768px) {
+  .roadmap-timeline {
+    padding: 0 20px !important;
+    display: block !important;
+  }
+  
+  .timeline-item {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+  }
+  
+  .timeline-content {
+    padding: 20px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .timeline-line {
+    display: none !important;
+  }
+  
+  .timeline-marker {
+    position: relative !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+/* ====================================================================
+   FINAL CRITICAL FIXES - EMERGENCY DEPLOYMENT
+   ==================================================================== */
+
+/* 1. FORCE HAMBURGER NAVIGATION TO WORK */
+@media (max-width: 768px) {
+  
+  /* Override all previous nav-toggle styles */
+  .nav-toggle {
+    display: flex !important;
+    position: fixed !important;
+    top: 25px !important;
+    right: 25px !important;
+    z-index: 999999 !important;
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 12px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 5px !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .nav-toggle span {
+    display: block !important;
+    width: 26px !important;
+    height: 3px !important;
+    background: #ffffff !important;
+    transition: all 0.3s ease !important;
+    border-radius: 2px !important;
+  }
+  
+  .nav-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px) !important;
+  }
+  
+  .nav-toggle.active span:nth-child(2) {
+    opacity: 0 !important;
+  }
+  
+  .nav-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px) !important;
+  }
+  
+  /* Override all nav-menu styles */
+  .nav-menu {
+    position: fixed !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: linear-gradient(135deg, rgba(0, 20, 40, 0.98), rgba(0, 40, 80, 0.98)) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    transition: left 0.4s ease !important;
+    z-index: 999998 !important;
+    padding: 120px 30px 30px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+  }
+  
+  .nav-menu.active {
+    left: 0 !important;
+  }
+  
   .nav-menu .nav-link {
     display: block !important;
     width: 100% !important;
+    max-width: 300px !important;
     padding: 25px 0 !important;
     color: #ffffff !important;
     text-decoration: none !important;
-    font-size: 1.6rem !important;
+    font-size: 1.8rem !important;
     font-weight: 600 !important;
     text-align: center !important;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
     transition: all 0.3s ease !important;
     touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  
+  .nav-menu .nav-link:hover {
+    color: #00d4ff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+}
+
+/* 2. FORCE STEP NUMBERS TO BE VISIBLE ON MOBILE */
+@media (max-width: 768px) {
+  
+  .step-number {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    top: -30px !important;
+    left: 30px !important;
+    background: linear-gradient(135deg, #0096ff, #00d4ff) !important;
+    color: #ffffff !important;
+    width: 70px !important;
+    height: 70px !important;
+    border-radius: 50% !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: bold !important;
+    font-size: 1.8rem !important;
+    box-shadow: 0 8px 25px rgba(0, 150, 255, 0.6) !important;
+    z-index: 1000 !important;
+    border: 4px solid rgba(255, 255, 255, 0.3) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  .buy-step {
+    position: relative !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 60px 30px 35px !important;
+    margin-bottom: 60px !important;
+    backdrop-filter: blur(10px) !important;
+  }
+}
+
+/* 3. COMPLETELY HIDE TYPEWRITER TEXT ON MOBILE */
+@media (max-width: 768px) {
+  
+  .typewriter-text,
+  .typewriter-text *,
+  .typewriter-text::before,
+  .typewriter-text::after,
+  #typewriter-content,
+  #typewriter-content *,
+  .typewriter-container,
+  .typewriter-container *,
+  [class*="typewriter"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+  }
+}
+
+/* 4. FIX ROADMAP LAYOUT ON MOBILE */
+@media (max-width: 768px) {
+  
+  .roadmap-timeline {
+    padding: 0 20px !important;
+    overflow-x: hidden !important;
+  }
+  
+  .timeline-item {
+    display: block !important;
+    margin-bottom: 50px !important;
+    position: relative !important;
+    padding-left: 0 !important;
+  }
+  
+  .timeline-content {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 30px !important;
+    margin: 0 !important;
+    backdrop-filter: blur(10px) !important;
+  }
+  
+  .timeline-marker {
+    position: relative !important;
+    margin: 0 auto 20px !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  .timeline-line {
+    display: none !important;
   }
 }
